@@ -40,8 +40,13 @@ function Home() {
                 const querySnapshot = await getDocs(collection(db, "product"));
                 querySnapshot.forEach((doc) => {
                     // doc.data() is never undefined for query doc snapshots
-                    console.log(doc.id, " => ", doc.data());
-                    array.push(doc.data());
+                    console.log(doc.id, "doc id", doc.data());
+                    // doc.data().push(doc.id)
+                    let obj=doc.data()
+                    obj.product_id=doc.id
+                    array.push(obj);
+                    console.log( "this is array with id", array);
+
                 });
                 setMyProduct(array);
                 setloader(false)
@@ -105,7 +110,7 @@ function Home() {
 
                                 return (
                                     <>
-                                        <div className=" container m-0 card_container"  key={e.id} style={{ width: '19rem' }}>
+                                        <div className=" container m-0 card_container"  key={e.product_id} style={{ width: '19rem' }}>
                                             <Card className='mt-4 box card' style={{ height: '22rem' }}>
                                                 <Card.Img variant="top" src={e.thumbnail_image_url} style={{ height: '13rem' }} />
                                                 <Card.Body>
@@ -113,9 +118,8 @@ function Home() {
                                                     <Card.Text>
                                                         {e.productName}
                                                     </Card.Text>
-                                                    {/* <Link to="/details" className="btn btn-primary">Details</Link> */}
                                                     <Button variant="primary" onClick={() =>
-                                                        navigate(`/details/${e.id}`)
+                                                        navigate(`/details/${e.product_id}`)
                                                     }>Details</Button>
                                                 </Card.Body>
                                             </Card>

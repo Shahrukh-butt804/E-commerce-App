@@ -16,6 +16,8 @@ function Signup() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
+  const [address, setAddress] = useState('');
+  const [number, setNumber] = useState('');
   const [pass, setPass] = useState('');
   const [cPass, setCpass] = useState('');
 
@@ -41,6 +43,8 @@ function Signup() {
             firstName,
             lastName,
             email,
+            address,
+            number,
             uid : user.uid
           });
         } catch (e) {
@@ -92,6 +96,14 @@ function Signup() {
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Enter email" />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Enter Your Address</Form.Label>
+            <Form.Control value={address} onChange={(e) => setAddress(e.target.value)} type="email" placeholder="address" />
+          </Form.Group>
+          <Form.Group className="mb-3" controlId="formBasicEmail">
+            <Form.Label>Enter Your Phone Number</Form.Label>
+            <Form.Control value={number} onChange={(e) => setNumber(e.target.value)} type="email" placeholder="021-xxx" />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">

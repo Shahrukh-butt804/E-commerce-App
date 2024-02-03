@@ -76,13 +76,12 @@
 
           // setIsLoading(true);
           const productData = {
-            // id: products.length + 1,
             user_id: uid,
             productName,
             price,
             discription,
             category,
-            // supplier: values.supplier,
+            brand,
             thumbnail_image_url: "",
             // more_images_urls: [],
             created_at: new Date(),
@@ -178,8 +177,6 @@
 
           <div className="container d-flex justify-content-between">
             <h1 className="text center m-4">Enter The Details of Your Product</h1>
-
-            <img className="mt-3 border" style={{ width: "180px", height: "120px" }} src={thumbnail_image} alt="" />
           </div>
 
 
@@ -235,9 +232,6 @@
 
 
 
-            {/* <Form.Group className="mb-3" controlId="formBasicCheckbox">
-          <Form.Check type="checkbox" label="Check me out" />
-        </Form.Group> */}
 
 
 
