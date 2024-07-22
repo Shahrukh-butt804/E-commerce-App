@@ -1,0 +1,35 @@
+#loginDiv{
+    width: 50%;
+}
+#signup{
+    width: 75%;
+}
+
+@media (max-width:768px) {
+    #image{
+        display: none;
+    }
+    #loginDiv{
+        width: 100%;
+        margin-left: -30px;
+        margin-top: 20px;
+     
+    }
+    
+    #loginChildDiv{
+        
+    }
+
+    
+#signup{
+    width: 100%;
+}
+
+
+
+
+
+}
+
+
+

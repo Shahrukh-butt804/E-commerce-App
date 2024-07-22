@@ -1,17 +1,21 @@
 import { Button, Form } from 'react-bootstrap';
 import { fbconfig } from "../firebase/firebase.mjs";
 import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
-import { getFirestore, collection, addDoc, setDoc,doc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, setDoc, doc } from "firebase/firestore";
 import { useState } from 'react';
+import { Spinner } from 'react-bootstrap';
+import "../login/login.css"
+
 import { useNavigate } from 'react-router-dom';
+import { set } from 'firebase/database';
 
 
 function Signup() {
 
   let app = fbconfig;
   const db = getFirestore(app);
-
   const navigate = useNavigate();
+
 
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
@@ -21,49 +25,104 @@ function Signup() {
   const [pass, setPass] = useState('');
   const [cPass, setCpass] = useState('');
 
+  const [loader, setLoader] = useState(false);
+
+
+
+  // validation
+
+  function validate(event) {
+    event.preventDefault();
+    setLoader(true)
+
+
+   if (firstName == "" || firstName.length <3) {
+      alert("firstName must  contain 3 characters")
+      setLoader(false)
+   }
+   else if (lastName == "" || lastName.length <3) {
+      alert("lastName must  contain 3 characters")
+      setLoader(false)
+   }
+   else if (email == "") {
+      alert("email must not be empty")
+      setLoader(false)
+   }
+   else if (!email.includes("@")) {
+      alert("Please enter the valid email")
+      setLoader(false)
+   }
+   else if (address == "" ) {
+      alert("address must not be empty")
+      setLoader(false)
+   }
+   else if (number == "" ) {
+      alert("Phone must not be empty")
+      setLoader(false)
+   }
+   else if (pass == "" ) {
+      alert("password field must not be empty")
+      setLoader(false)
+   }
+   else if (pass.length <8 ) {
+      alert("Your password must be 8 characters long")
+      setLoader(false)
+   }
+   else if (pass != cPass) {
+      alert("Your password and confirm password must be same")
+      setLoader(false)
+   }
+ 
+   else {
+      signUp(event)
+   }
+
+  }
 
 
   function signUp(event) {
-    event.preventDefault();
-    // console.log(1,firstName)
-    // console.log(2,lastName)
-    // console.log(3,email)
-    // console.log(4,pass)
-    // console.log(5,cPass)
-
-
+    // event.preventDefault();
     const auth = getAuth();
     createUserWithEmailAndPassword(auth, email, pass)
       .then(async (userCredential) => {
         // Signed up 
         const user = userCredential.user;
-        console.log("this is return",user.uid)
+
+        // console.log("this is return", user.uid)
         try {
-          await setDoc(doc(db, "users",user.uid), {
+          await setDoc(doc(db, "users", user.uid), {
             firstName,
             lastName,
             email,
             address,
             number,
-            uid : user.uid
+            uid: user.uid
           });
+          setLoader(false)
+          navigate("/")
+          setFirstName("");
+          setLastName("");
+          setEmail("");
+          setPass("");
+          setCpass("");
+
+
         } catch (e) {
           console.error("Error adding document: ", e);
+          setLoader(false)
+
         }
 
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
+        alert("error", errorMessage)
+        setLoader(false)
+
         // ..
       });
 
-    navigate("/")
-    setFirstName("");
-    setLastName("");
-    setEmail("");
-    setPass("");
-    setCpass("");
 
   }
 
@@ -76,7 +135,8 @@ function Signup() {
 
   return (
     <>
-      <div id='signBg' className="container-fluid w-50 p-2 border border-success  mt-5">
+    <div className='p-2 mb-3' >
+      <div  className="container p-2 border border-success  mt-4" id='signup'>
         <div className="container text-center"></div>
         <Form className='p-2'>
           <Form.Group className="mb-3" controlId="formBasicEmail">
@@ -115,15 +175,25 @@ function Signup() {
             <Form.Control value={cPass} onChange={(e) => setCpass(e.target.value)} type="password" placeholder="Password" />
           </Form.Group>
 
-          <Button onClick={signUp} variant="success" type="submit">
-            signup
-          </Button>
+          <div className="container d-flex">
+            <Button onClick={validate} variant="dark" type="submit">
+              Submit
+            </Button>
 
-          <Button className='ms-2' variant="success" type="submit">
-            Login
-          </Button>
+            <Button className='ms-2' variant="dark" type="submit">
+              Back To Login
+            </Button>
+            {loader && (
+              <div className=" ms-2" >
+                <Spinner animation="border" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </Spinner>
+              </div>
+            )}
+          </div>
         </Form>
 
+      </div>
       </div>
     </>
   );

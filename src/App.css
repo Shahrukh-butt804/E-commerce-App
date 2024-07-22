@@ -39,12 +39,6 @@
 
 
 
-body{
-  /* background: rgb(0,137,181);
-background: linear-gradient(90deg, rgba(0,137,181,1) 2%, rgba(0,212,255,1) 100%);  */
-/* background: rgb(0,161,181);
-background: linear-gradient(90deg, rgba(0,161,181,1) 2%, rgba(0,177,255,1) 100%);  */
-}
 #homepic{
   font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   color: aliceblue;
@@ -62,4 +56,19 @@ background: linear-gradient(90deg, rgba(0,161,181,1) 2%, rgba(0,177,255,1) 100%)
   /* border: 3px solid black; */
   box-shadow: 6px 6px 4px  rgba(0, 0, 0, 2);
 
+}
+
+#mainContainer{
+  box-sizing: border-box;
+}
+
+
+@media (max-width: 768px) {
+  #mainContainer{
+    flex-wrap: wrap;
+    flex-direction: column-reverse;
+  }
+  #child1 img{
+    width: 320px;
+  }
 }

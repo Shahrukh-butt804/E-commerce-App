@@ -87,7 +87,7 @@ function MyProfile() {
 
 
     return (
-        <>
+        <div className="mb-4">
             {isLoading ?
 
                 <div className="container text-center mt-5" >
@@ -109,9 +109,9 @@ function MyProfile() {
 
                         <div className="d-flex container  mb-4" >
                             <div className="mt-4 mb-4" >
-                                <img style={{ width: "180px", height: '150px', borderRadius: "100px" }}
+                                <img style={{ width: "180px", borderRadius: "100px" }}
                                     src={!myProfile.avatar_url ?
-                                        "https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671122.jpg"
+                                        "https://png.pngtree.com/png-vector/20191101/ourmid/pngtree-cartoon-color-simple-male-avatar-png-image_1934459.jpg"
                                         :
                                         myProfile.avatar_url
 
@@ -144,16 +144,16 @@ function MyProfile() {
 
                             return (
                                 <>
-                                    <div className=" container m-0" key={e.id} style={{ width: '19rem' }}>
-                                        <Card className='mt-4 box card' style={{ height: '22rem' }}>
+                                    <div className=" container m-0 p-1" key={e.id} style={{ width: '19rem' }}>
+                                        <Card className='mt-2 box card' style={{ height: '20rem' }}>
                                             <Card.Img variant="top" src={e.thumbnail_image_url} style={{ height: '13rem' }} />
                                             <Card.Body>
                                                 <Card.Title><b>{e.productName}</b></Card.Title>
-                                                <Card.Text>
+                                                <Card.Text className="fs-5">
                                                     $ {e.price}
                                                 </Card.Text>
                                                 {/* <Link to="/details" className="btn btn-primary">Details</Link> */}
-                                                <Button variant="primary">Details</Button>
+                                                {/* <Button variant="primary">Details</Button> */}
                                             </Card.Body>
                                         </Card>
 
@@ -168,7 +168,7 @@ function MyProfile() {
             }
 
 
-        </>
+        </div>
     )
 }
 
